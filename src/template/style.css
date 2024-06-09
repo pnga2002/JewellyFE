@@ -1,0 +1,4 @@
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; /* necessary for the dropdowns to overlap the navbar */
+  }
