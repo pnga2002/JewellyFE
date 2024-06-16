@@ -20,6 +20,8 @@ import './assets/bootstrap4/bootstrap.min.css'
 import MainPage from './component/Home/MainPage';
 import AllProduct from './page/PhanLoai/AllProduct';
 import ProductDetail from './page/ProductDetail/ProductDetail';
+import Login from './page/Login/Login';
+import Cart from './page/Cart/Cart';
 export const history = createBrowserHistory();
 function App() { 
   return (
@@ -31,9 +33,10 @@ function App() {
          
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/phan-loai" element={<AllProduct />} />
+          <Route path="/cart" element={<Cart />} />
           {/* <Route path="/*" element={<PagenotFound />} /> */}
         </Route>
-        {/* <Route path="/login" element={<Login />} /> */}
+        <Route path="/login" element={<Login />} />
         {/* <Route path="/signup" element={<Signup />} /> */}
       </Routes>
     </HistoryRouter> 

@@ -4,13 +4,21 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { getAllCateApi } from '../redux/reducer/categoryReducer';
 import './style.css'
 import { history } from '../App';
+import { removeStore } from '../utils/config';
+import { getAllCartApi } from '../redux/reducer/cartReducer';
 
 const HomeTemplate = () => {
     const { lstCate } = useSelector((state) => state.categoryReducer)
+    const { userInfor } = useSelector((state) => state.authReducer)
+    const { lstCart } = useSelector((state) => state.cartReducer)
     const dispatch = useDispatch();
     useEffect(() => {
+        if(!userInfor){
+            history.push('/login')
+        }
         dispatch(getAllCateApi())
-    }, [])
+        dispatch(getAllCartApi(userInfor?.idUser))
+    },[])
     return (
         <div className="super_container">
             <header className="header trans_300">
@@ -23,7 +31,7 @@ const HomeTemplate = () => {
                             <div className="col-md-6 text-right">
                                 <div className="top_nav_right">
                                     <ul className="top_nav_menu">
-                                        <li className="currency">
+                                        {/* <li className="currency">
                                             <a href="#">
                                                 usd
                                                 <i className="fa fa-angle-down" />
@@ -46,16 +54,30 @@ const HomeTemplate = () => {
                                                 <li><a href="#">German</a></li>
                                                 <li><a href="#">Spanish</a></li>
                                             </ul>
-                                        </li>
+                                        </li> */}
                                         <li className="account">
-                                            <a href="#">
+                                            {userInfor?
+                                            <a href='#' className=''>
+                                            Hello {userInfor?.username}
+                                            <i className="ms-3 fa-solid fa-right-from-bracket" onClick={() => { 
+                                            removeStore('user_infor')
+                                            history.push('/login')
+                                         }}></i>
+                                        </a>
+                                       
+                                        :
+                                        <>
+                                        <a href="#">
                                                 My Account
                                                 <i className="fa fa-angle-down" />
                                             </a>
-                                            <ul className="account_selection">
-                                                <li><a href="#"><i className="fa fa-sign-in" aria-hidden="true" />Sign In</a></li>
-                                                <li><a href="#"><i className="fa fa-user-plus" aria-hidden="true" />Register</a></li>
+                                            <ul className="account_selection ps-0">
+                                                <li style={{cursor:'pointer'}} onClick={() => { 
+                                                    history.push('/login')
+                                                 }}><i className="fa fa-sign-in pr-2" aria-hidden="true" /><span href="#">Sign In</span></li>
+                                                <li><i className="fa fa-user-plus pr-2" aria-hidden="true" /><span href="#">Register</span></li>
                                             </ul>
+                                        </>}
                                         </li>
                                     </ul>
                                 </div>
@@ -97,10 +119,12 @@ const HomeTemplate = () => {
                                     <ul className="navbar_user">
                                         <li><a href="#"><i className="fa fa-search" aria-hidden="true" /></a></li>
                                         <li><a href="#"><i className="fa fa-user" aria-hidden="true" /></a></li>
-                                        <li className="checkout">
+                                        <li className="checkout" onClick={() => { 
+                                            history.push('/cart')
+                                         }}>
                                             <a href="#">
                                                 <i className="fa fa-shopping-cart" aria-hidden="true" />
-                                                <span id="checkout_items" className="checkout_items">2</span>
+                                                <span id="checkout_items" className="checkout_items">{lstCart?.length}</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -132,11 +156,11 @@ const HomeTemplate = () => {
                         <div className="col-lg-6">
                             <div className="footer_social d-flex flex-row align-items-center justify-content-lg-end justify-content-center">
                                 <ul>
-                                    <li><a href="#"><i className="fa fa-facebook" aria-hidden="true" /></a></li>
-                                    <li><a href="#"><i className="fa fa-twitter" aria-hidden="true" /></a></li>
-                                    <li><a href="#"><i className="fa fa-instagram" aria-hidden="true" /></a></li>
-                                    <li><a href="#"><i className="fa fa-skype" aria-hidden="true" /></a></li>
-                                    <li><a href="#"><i className="fa fa-pinterest" aria-hidden="true" /></a></li>
+                                    <li><a href="#"><i className="fa-brands fa-facebook"></i></a></li>
+                                    <li><a href="#"><i className="fa-brands fa-twitter" aria-hidden="true" /></a></li>
+                                    <li><a href="#"><i className="fa-brands fa-instagram" aria-hidden="true" /></a></li>
+                                    <li><a href="#"><i className="fa-brands fa-skype" aria-hidden="true" /></a></li>
+                                    <li><a href="#"><i className="fa-brands fa-pinterest" aria-hidden="true" /></a></li>
                                 </ul>
                             </div>
                         </div>

@@ -2,12 +2,22 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProductDetailApi } from '../../redux/reducer/productReducer';
 import { useParams } from 'react-router-dom';
+import { addToCartApi } from '../../redux/reducer/cartReducer';
 
 const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1)
   const { id } = useParams()
   const { productDetail } = useSelector((state) => state.productReducer)
+  const { userInfor } = useSelector((state) => state.authReducer)
   const dispatch = useDispatch();
+  const addToCart = () => {
+    let obj = {
+      "userId": userInfor.idUser,
+      "productId": id,
+      "quantity": quantity
+    }
+    dispatch(addToCartApi(obj))
+  }
   useEffect(() => {
     dispatch(getAllProductDetailApi(id))
   }, id)
@@ -87,7 +97,8 @@ const ProductDetail = () => {
                   <span id="quantity_value">{quantity}</span>
                   <span className="plus" onClick={changeQuantity}><i className="fa fa-plus" aria-hidden="true" /></span>
                 </div>
-                <div className="red_button add_to_cart_button"><a href="#">add to cart</a></div>
+                <div className="red_button ">
+                  <button className='newsletter_submit_btn' onClick={addToCart}>add to cart</button></div>
                 <div className="product_favorite d-flex flex-column align-items-center justify-content-center" />
               </div>
             </div>
