@@ -22,6 +22,7 @@ import AllProduct from './page/PhanLoai/AllProduct';
 import ProductDetail from './page/ProductDetail/ProductDetail';
 import Login from './page/Login/Login';
 import Cart from './page/Cart/Cart';
+import Profile from './page/Profile/Profile';
 export const history = createBrowserHistory();
 function App() { 
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/phan-loai" element={<AllProduct />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/profile" element={<Profile />} />
           {/* <Route path="/*" element={<PagenotFound />} /> */}
         </Route>
         <Route path="/login" element={<Login />} />

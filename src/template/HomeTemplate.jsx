@@ -118,7 +118,9 @@ const HomeTemplate = () => {
                                     </ul>
                                     <ul className="navbar_user">
                                         <li><a href="#"><i className="fa fa-search" aria-hidden="true" /></a></li>
-                                        <li><a href="#"><i className="fa fa-user" aria-hidden="true" /></a></li>
+                                        <li onClick={() => { 
+                                            history.push('/profile')
+                                         }}><a href="#"><i className="fa fa-user" aria-hidden="true" /></a></li>
                                         <li className="checkout" onClick={() => { 
                                             history.push('/cart')
                                          }}>
