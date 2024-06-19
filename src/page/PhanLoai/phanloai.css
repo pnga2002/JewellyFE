@@ -1,0 +1,7 @@
+.sidebar_categories p.active{
+    color: #fe4c50;
+}
+.sidebar_categories p:hover{
+    cursor: pointer;
+    color: #fe4c50;
+}

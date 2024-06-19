@@ -6,6 +6,7 @@ import './style.css'
 import { history } from '../App';
 import { removeStore } from '../utils/config';
 import { getAllCartApi } from '../redux/reducer/cartReducer';
+import { message } from 'antd';
 
 const HomeTemplate = () => {
     const { lstCate } = useSelector((state) => state.categoryReducer)
@@ -15,9 +16,13 @@ const HomeTemplate = () => {
     useEffect(() => {
         if(!userInfor){
             history.push('/login')
+            message.info("Vui lòng đăng nhập hoặc tạo tài khoản để trải nghiệm trang web")
         }
-        dispatch(getAllCateApi())
+        else{
+            dispatch(getAllCateApi())
         dispatch(getAllCartApi(userInfor?.idUser))
+        }
+        
     },[])
     return (
         <div className="super_container">
@@ -97,7 +102,7 @@ const HomeTemplate = () => {
                                 </div>
                                 <nav className="navbar">
                                     <ul className="navbar_menu">
-                                        <li><a href="#">home</a></li>
+                                        <li><NavLink to="/">home</NavLink></li>
                                         <li className="nav-item dropdown">
                                             <span className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" onClick={() => { 
                                                 history.push('/phan-loai')

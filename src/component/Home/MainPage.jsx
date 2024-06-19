@@ -5,9 +5,9 @@ import { history } from '../../App';
 const MainPage = () => {
   const { lstProduct } = useSelector((state) => state.productReducer)
   const dispatch = useDispatch();
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getAllProductApi())
-  },[])
+  }, [])
   return (
     <div>
 
@@ -54,42 +54,41 @@ const MainPage = () => {
           </div>
         </div>
       </div>
-     <div className="best_sellers">
-  <div className="container">
-    <div className="row">
-      <div className="col text-center">
-        <div className="section_title new_arrivals_title">
-          <h2>Best Sellers</h2>
-        </div>
-      </div>
-    </div>
-    <div className="row mt-5">
-          
-            {/* Slide 1 */}
-           {lstProduct?.map((item,idx)=>{
-            return  <div key={idx} className="col-3" onClick={() => { 
-              history.push(`/product/${item.idProduct}`)
-             }}>
-            <div className="w-full h-full">
-              <div className="product discount">
-                <div className="product_image">
-                  <img src={item.imageUrl} alt />
-                </div>
-                <div className="favorite favorite_left" />
-                <div className="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>
-                <div className="product_info">
-                  <h6 className="product_name"><span>{item.name}</span></h6>
-                  <div className="product_price">{item.price}</div>
-                </div>
+      <div className="best_sellers">
+        <div className="container">
+          <div className="row">
+            <div className="col text-center">
+              <div className="section_title new_arrivals_title">
+                <h2>Best Sellers</h2>
               </div>
             </div>
           </div>
-           })}
-           
-          
-    </div>
-  </div>
-</div>
+          <div className="row mt-5">
+
+            {/* Slide 1 */}
+            {lstProduct?.map((item, idx) => {
+              return <div key={idx} className="col-3 py-2" style={{ height: '100%' }} onClick={() => {
+                history.push(`/product/${item.idProduct}`)
+              }}>
+                <div className="w-full h-full">
+                  <div className="product discount" style={{display:'flex',flexDirection:'column'}}>
+                    <div className="product_image">
+                      <img src={item.imageUrl} alt  style={{borderRadius:'5px'}}/>
+                    </div>
+                    <div className="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-0%</span></div>
+                    <div className="product_info d-flex flex-column align-items-center justify-content-between">
+                      <h6 className="product_name"><span>{item.name}</span></h6>
+                      <div className="product_price">{(item.price*1000).toLocaleString()} VND</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            })}
+
+
+          </div>
+        </div>
+      </div>
 
 
 

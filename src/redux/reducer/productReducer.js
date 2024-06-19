@@ -42,3 +42,13 @@ export const getAllProductDetailApi = (id) => {
         }
     }
 }
+export const getAllProductCategoryApi = (id) => {
+    return async dispatch => {
+        try {
+            const result = await http.get(`/api/products/category/${id}`)
+            dispatch(getAllProductAction(result.data))
+        } catch (error) {
+
+        }
+    }
+}
