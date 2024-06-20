@@ -13,10 +13,17 @@ const AllProduct = () => {
       cate: "",
       // key:""
   });
+  const fetchIdcate = (text) => { 
+    const category = lstCate?.find(category => toAliasString(category.name) ==text);
+    setIdCate(category ? category.idCategory : 0)
+   }
     const dispatch = useDispatch();
     useEffect(()=>{
       dispatch(getAllProductCategoryApi(idCate))
     },[idCate])
+    useEffect(()=>{
+      fetchIdcate(searchParams.get("cate"))
+    },[searchParams.get("cate"),lstCate])
     return (
         <div>
             <div className="container product_section_container">

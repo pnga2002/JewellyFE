@@ -23,6 +23,13 @@ import ProductDetail from './page/ProductDetail/ProductDetail';
 import Login from './page/Login/Login';
 import Cart from './page/Cart/Cart';
 import Profile from './page/Profile/Profile';
+import AdminTemplate from './template/AdminTemplate';
+import MainPageAdmin from './page/Admin/MainPageAdmin';
+import ADUser from './page/Admin/ADUser/ADUser';
+import ADProduct from './page/Admin/ADProduct/ADProduct';
+import ADOrder from './page/Admin/ADOrder/ADOrder';
+import ADCategory from './page/Admin/ADCategory/ADCategory';
+import ADStatus from './page/Admin/ADStatus/ADStatus';
 export const history = createBrowserHistory();
 function App() { 
   return (
@@ -36,6 +43,16 @@ function App() {
           <Route path="/phan-loai" element={<AllProduct />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/profile" element={<Profile />} />
+          {/* <Route path="/*" element={<PagenotFound />} /> */}
+        </Route>
+        {/* ADMIN */}
+        <Route path="/admin" element={<AdminTemplate />}>
+          <Route index element={<MainPageAdmin />} />
+          <Route path="nguoi-dung" element={<ADUser />} />
+          <Route path="san-pham" element={<ADProduct />} />
+          <Route path="don-hang" element={<ADOrder />} />
+          <Route path="phan-loai" element={<ADCategory />} />
+          <Route path="trang-thai" element={<ADStatus />} />
           {/* <Route path="/*" element={<PagenotFound />} /> */}
         </Route>
         <Route path="/login" element={<Login />} />

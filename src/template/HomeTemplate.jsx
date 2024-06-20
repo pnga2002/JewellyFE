@@ -1,18 +1,22 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useSearchParams } from 'react-router-dom';
 import { getAllCateApi } from '../redux/reducer/categoryReducer';
 import './style.css'
 import { history } from '../App';
 import { removeStore } from '../utils/config';
 import { getAllCartApi } from '../redux/reducer/cartReducer';
 import { message } from 'antd';
+import { toAliasString } from '../utils/convertAlias';
 
 const HomeTemplate = () => {
     const { lstCate } = useSelector((state) => state.categoryReducer)
     const { userInfor } = useSelector((state) => state.authReducer)
     const { lstCart } = useSelector((state) => state.cartReducer)
     const dispatch = useDispatch();
+    let [searchParams, setSearchParams] = useSearchParams({
+        cate: ""
+    });
     useEffect(() => {
         if(!userInfor){
             history.push('/login')
@@ -60,14 +64,14 @@ const HomeTemplate = () => {
                                                 <li><a href="#">Spanish</a></li>
                                             </ul>
                                         </li> */}
-                                        <li className="account">
+                                        <li className="account" >
                                             {userInfor?
-                                            <a href='#' className=''>
+                                            <a href='' className=''onClick={() => { 
+                                                removeStore('user_infor')
+                                                history.push('/login')
+                                             }}>
                                             Hello {userInfor?.username}
-                                            <i className="ms-3 fa-solid fa-right-from-bracket" onClick={() => { 
-                                            removeStore('user_infor')
-                                            history.push('/login')
-                                         }}></i>
+                                            <i className="ms-3 fa-solid fa-right-from-bracket" ></i>
                                         </a>
                                        
                                         :
@@ -98,7 +102,7 @@ const HomeTemplate = () => {
                                 <div className="logo_container" onClick={() => { 
                                     history.push("/")
                                  }}>
-                                    <a href="#">colo<span>shop</span></a>
+                                    <a href="#">c29<span>shop</span></a>
                                 </div>
                                 <nav className="navbar">
                                     <ul className="navbar_menu">
@@ -111,7 +115,9 @@ const HomeTemplate = () => {
                                             </span>
                                             <ul className="dropdown-menu">
                                                 {lstCate?.map((item, idx) => {
-                                                    return <li><a className="dropdown-item" href="#">{item.name}</a></li>
+                                                    return <li onClick={() => { 
+                                                        history.push(`/phan-loai?cate=${toAliasString(item.name)}`)
+                                                     }}><a className="dropdown-item" href="#">{item.name}</a></li>
                                                 })}
                                             </ul>
                                         </li>

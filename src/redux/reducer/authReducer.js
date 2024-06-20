@@ -6,8 +6,8 @@ import { message } from "antd";
 
 const initialState = {
   userInfor: getStoreJson("user_infor"),
-};
-
+  allUser:[]
+}
 const authReducer = createSlice({
   name: "authReducer",
   initialState,
@@ -15,10 +15,16 @@ const authReducer = createSlice({
     setUserInforAction: (state, action) => {
       state.userInfor = action.payload;
     },
+    setAllUserAction: (state, action) => {
+      state.allUser = action.payload;
+    },
   },
 });
 
-export const { setUserInforAction } = authReducer.actions;
+export const { 
+  setUserInforAction,
+  setAllUserAction
+ } = authReducer.actions;
 
 export default authReducer.reducer;
 export const loginApi = (model) => {
@@ -34,6 +40,18 @@ export const loginApi = (model) => {
       .catch((er) => {
         console.log(er);
         message.error("Đăng nhập thất bại");
+      });
+  };
+};
+export const getAllUserApi = () => {
+  return async (dispatch) => {
+    await http
+      .get("/api/users")
+      .then((res) => {
+        dispatch(setAllUserAction(res.data));
+      })
+      .catch((er) => {
+        message.error("Lỗi báo IT");
       });
   };
 };
