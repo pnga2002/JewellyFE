@@ -39,6 +39,12 @@ const ADUser = () => {
           key: 'phoneNumber'
         },
         {
+          title: 'Quyền',
+          dataIndex: 'role',
+          key: 'role',
+          render: (_, rec, idx) => <Tag color='blue-inverse' style={{textTransform:"capitalize"}}>{_}</Tag>,
+        },
+        {
           title: 'Địa chỉ',
           dataIndex: 'address',
           key: 'address'

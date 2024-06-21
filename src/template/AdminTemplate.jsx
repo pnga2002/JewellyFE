@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -6,15 +6,31 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
-import { Button, Layout, Menu, theme } from 'antd';
+import { Button, Layout, Menu, message, theme } from 'antd';
 import { NavLink, Outlet } from 'react-router-dom';
 import { history } from '../App';
+import { useSelector } from 'react-redux';
 const { Header, Sider, Content } = Layout;
 const AdminTemplate = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const { userInfor } = useSelector((state) => state.authReducer)
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+  useEffect(() => {
+    if(!userInfor){
+        history.push('/login')
+        message.info("Vui lòng đăng nhập hoặc tạo tài khoản để trải nghiệm trang web")
+    }
+    else{
+       if(userInfor.role!=="admin"){
+        history.push("/")
+        message.info("Bạn không có quyền truy cập vào hệ thống")
+       }
+    }
+    
+},[])
   return (
     <Layout style={{minHeight:'100vh'}}>
       <Sider trigger={null} collapsible collapsed={collapsed}>

@@ -166,6 +166,6 @@
 .social-login__icon:hover {
 	transform: scale(1.5);	
 }
-.ant-form{
+.login_container .ant-form{
     padding-top: 200px;
 }

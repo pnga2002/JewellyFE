@@ -4,6 +4,7 @@ import categoryReducer from "./reducer/categoryReducer";
 import authReducer from "./reducer/authReducer";
 import cartReducer from "./reducer/cartReducer";
 import orderReducer from "./reducer/orderReducer";
+import statusReducer from "./reducer/statusReducer";
 export const store = configureStore({
     reducer: {
         productReducer:productReducer,
@@ -11,6 +12,7 @@ export const store = configureStore({
         authReducer:authReducer,
         cartReducer:cartReducer,
         orderReducer:orderReducer,
-        cartReducer:cartReducer
+        cartReducer:cartReducer,
+        statusReducer:statusReducer
     },
 });
