@@ -79,7 +79,7 @@ const AdminTemplate = () => {
             {
                 key: '8',
                 icon: <i className="fa-solid fa-right-from-bracket"></i>,
-                label: <NavLink to="login">Đăng xuất</NavLink>,
+                label: <NavLink to="/login">Đăng xuất</NavLink>,
             },
           ]}
         />

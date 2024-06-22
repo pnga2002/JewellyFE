@@ -55,3 +55,36 @@ export const getAllUserApi = () => {
       });
   };
 };
+export const delUserApi = (id) => {
+  return async dispatch => {
+      try {
+          const result = await http.delete(`/api/users/${id}`)
+          dispatch(getAllUserApi())
+          message.success("Xóa thành công")
+      } catch (error) {
+        message.warning("Người dùng có đơn hàng chưa xử lý, vui lòng xử lý đơn hàng trước khi xóa!")
+      }
+  }
+}
+export const updateUserApi = (obj) => {
+  return async dispatch => {
+      try {
+          const result = await http.put(`/api/users/${obj.idUser}`,obj)
+          dispatch(getAllUserApi())
+          message.success("Cập nhật thành công")
+      } catch (error) {
+          message.error("Lỗi báo IT")
+      }
+  }
+}
+export const addUserApi = (obj) => {
+  return async dispatch => {
+      try {
+          const result = await http.post(`/api/users`,obj)
+          dispatch(getAllUserApi())
+          message.success("Thêm mới thành công")
+      } catch (error) {
+          message.error("Lỗi báo IT")
+      }
+  }
+}

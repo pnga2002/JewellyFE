@@ -124,6 +124,7 @@ const Cart = () => {
       "product": selectedRows.map(row => ({ productId: row.product.idProduct, quantity: row.quantity, idCartDetail: row.idCartDetail, price: row.product.price }))
     }
     console.log(obj)
+    setOpen(false)
     dispatch(addOrderApi(obj))
   }
   const onSelectChange = (selectedRowKeys, selectedRows) => {
