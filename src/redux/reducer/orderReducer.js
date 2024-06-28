@@ -4,6 +4,7 @@ import { message } from 'antd';
 import { getAllCartApi } from './cartReducer';
 
 const initialState = {
+  allOrder:[],
     lstOrder:[],
     detailOrder:[]
 
@@ -19,12 +20,16 @@ const orderReducer = createSlice({
     getOrderDetaiUser: (state, action) => {
         state.detailOrder = action.payload;
       },
+    getAllOrder: (state, action) => {
+        state.allOrder = action.payload;
+      },
   }
 });
 
 export const {
     getOrderUser,
-    getOrderDetaiUser
+    getOrderDetaiUser,
+    getAllOrder
 } = orderReducer.actions
 
 export default orderReducer.reducer
@@ -61,6 +66,31 @@ export const getOrderDetailApi = (id) => {
         .get(`/api/orderdetails/order/${id}`)
         .then((res) => {
           dispatch(getOrderDetaiUser(res.data));
+        })
+        .catch((er) => {
+          message.error("Có lỗi xảy ra, vui lòng thử lại");
+        });
+    };
+  };
+export const getAllOrderApi = (id) => {
+    return async (dispatch) => {
+      await http
+        .get(`/api/order`)
+        .then((res) => {
+          dispatch(getAllOrder(res.data));
+        })
+        .catch((er) => {
+          message.error("Có lỗi xảy ra, vui lòng thử lại");
+        });
+    };
+  };
+export const updateOrderApi = (obj) => {
+    return async (dispatch) => {
+      await http
+        .put(`/api/order/update`,obj)
+        .then((res) => {
+          message.success("Cập nhật trạng thái đơn hàng thành công")
+          // dispatch(getAllOrder(res.data));
         })
         .catch((er) => {
           message.error("Có lỗi xảy ra, vui lòng thử lại");
