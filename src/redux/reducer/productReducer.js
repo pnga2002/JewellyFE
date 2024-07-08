@@ -60,7 +60,7 @@ export const delProductApi = (id) => {
             dispatch(getAllProductApi())
             message.success("Xóa thành công")
         } catch (error) {
-            message.error("Lỗi báo IT")
+            // message.error("Lỗi báo IT")
         }
     }
 }

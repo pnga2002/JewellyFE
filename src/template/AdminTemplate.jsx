@@ -24,7 +24,7 @@ const AdminTemplate = () => {
         message.info("Vui lòng đăng nhập hoặc tạo tài khoản để trải nghiệm trang web")
     }
     else{
-       if(userInfor.role!=="admin"){
+       if(userInfor.role=="user"){
         history.push("/")
         message.info("Bạn không có quyền truy cập vào hệ thống")
        }

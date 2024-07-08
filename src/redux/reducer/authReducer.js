@@ -34,6 +34,7 @@ export const loginApi = (model) => {
       .then((res) => {
         dispatch(setUserInforAction(res.data.infor));
         luuStoreJson("user_infor", res.data.infor);
+        luuStore("token", res.data.token);
         message.success("Đăng nhập thành công");
         history.push("/");
       })
