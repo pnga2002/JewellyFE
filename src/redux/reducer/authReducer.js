@@ -79,6 +79,8 @@ export const updateUserApi = (obj) => {
   }
 }
 export const addUserApi = (obj) => {
+
+  
   return async dispatch => {
       try {
           const result = await http.post(`/api/users`,obj)
