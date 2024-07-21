@@ -10,9 +10,11 @@ import { Button, Layout, Menu, message, theme } from 'antd';
 import { NavLink, Outlet } from 'react-router-dom';
 import { history } from '../App';
 import { useSelector } from 'react-redux';
+import ChangPass from '../page/Admin/ChangPass';
 const { Header, Sider, Content } = Layout;
 const AdminTemplate = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [changePass, setChangePass] = useState(false);
   const { userInfor } = useSelector((state) => state.authReducer)
 
   const {
@@ -74,7 +76,7 @@ const AdminTemplate = () => {
             {
                 key: '7',
                 icon: <i className="fa-solid fa-rotate"></i>,
-                label: <NavLink >Đổi mật khẩu</NavLink>,
+                label: <a onClick={() => { setChangePass(true) }} >Đổi mật khẩu</a>,
             },
             {
                 key: '8',
@@ -112,6 +114,7 @@ const AdminTemplate = () => {
           }}
         >
           <Outlet/>
+          <ChangPass open={changePass} setOpen={setChangePass}/>
         </Content>
       </Layout>
     </Layout>

@@ -91,3 +91,22 @@ export const addUserApi = (obj) => {
       }
   }
 }
+export const checkPass = (obj) => {
+  return async dispatch => {
+      try {
+          const result = await http.post(`/api/users/checkPass`,obj)
+          console.log(result)
+      } catch (error) {
+      }
+  }
+}
+export const changePass = (obj) => {
+  return async dispatch => {
+      try {
+          const result = await http.post(`/api/users/changePass`,obj)
+         
+          message.success("Đổi mật khẩu thành công")
+      } catch (error) {
+      }
+  }
+}
