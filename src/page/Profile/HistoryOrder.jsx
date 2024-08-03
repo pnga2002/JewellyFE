@@ -54,6 +54,11 @@ const HistoryOrder = () => {
             render: (text, rec) => <p>{text.toLocaleString()}</p>,
         },
         {
+            title: 'Thanh toán',
+            dataIndex: 'thanhToan',
+            key: 'thanhToan'
+        },
+        {
             title: 'Action',
             key: 'action',
             render: (text, rec) => <p style={{ cursor: 'pointer' }} onClick={() => {

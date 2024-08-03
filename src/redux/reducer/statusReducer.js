@@ -32,6 +32,16 @@ export const getAllStatusApi = () => {
       }
     };
 };
+export const getSearchStatusApi = (key) => {
+    return async (dispatch) => {
+      try {
+        const result = await http.get(`/api/status/search?key=${key}`);
+        dispatch(getStatusAction(result.data));
+      } catch (error) {
+        message.error("Lỗi báo IT");
+      }
+    };
+};
 export const delStatusApi = (id) => {
   return async dispatch => {
       try {

@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { addStatusApi, delStatusApi, getAllStatusApi, updateStatusApi } from '../../../redux/reducer/statusReducer';
+import { addStatusApi, delStatusApi, getAllStatusApi, getSearchStatusApi, updateStatusApi } from '../../../redux/reducer/statusReducer';
+const { Search } = Input;
 const ADStatus = () => {
   const { lstStatus } = useSelector((state) => state.statusReducer)
   const dispatch = useDispatch()
@@ -12,6 +13,8 @@ const ADStatus = () => {
   }
 
   //post and put
+  
+  const [search, setSearch] = useState('')
   const [status, setStatus] = useState()
   const [open, setOpen] = useState(false)
   const handleOpen = () => {
@@ -53,6 +56,7 @@ const ADStatus = () => {
         title: 'Tên phân loại',
         dataIndex: 'name',
         key: 'name',
+        sorter: (a, b) => a.name.localeCompare(b.name),
         render: (prod) => <p>{prod}</p>,
       },
       {
@@ -78,14 +82,26 @@ const ADStatus = () => {
         )
       }
   ];
+  const onSearch=(e) => { 
+    setSearch(e)
+   }
   useEffect(()=>{
-    dispatch(getAllStatusApi())
-  },[])
+    dispatch(getSearchStatusApi(search))
+  },[search])
   return (
     <div>
       <div className="d-flex align-items-center justify-content-between mb-3">
         <h4 className=''>Quản lý trạng thái</h4>
         <button className='newsletter_submit_btn rounded' onClick={handleOpen}>Thêm mới</button>
+      </div>
+      <div>
+      <Search className='mb-1'
+          placeholder="Tìm kiếm tên"
+          onSearch={onSearch}
+          style={{
+              width: 300,
+          }}
+      />
       </div>
     <Table columns={columns} dataSource={lstStatus}rowKey={record => record.idStatus} />
     <Modal title={status?"Chỉnh sửa":"Thêm mới"} open={open} onCancel={handleClose} onOk={form.submit}>

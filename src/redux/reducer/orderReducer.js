@@ -48,6 +48,18 @@ export const addOrderApi = (obj) => {
         });
     };
   };
+export const addOrderPaymentApi = (obj) => {
+    return async (dispatch) => {
+      await http
+        .post("/api/orderdetails/thanhToan", obj)
+        .then((res) => {
+          window.location.href = res.data
+        })
+        .catch((er) => {
+          message.error("Có lỗi xảy ra, vui lòng thử lại");
+        });
+    };
+  };
 export const getAllOrderByUserIdApi = (id) => {
     return async (dispatch) => {
       await http
@@ -78,6 +90,19 @@ export const getAllOrderApi = (id) => {
         .get(`/api/order`)
         .then((res) => {
           dispatch(getAllOrder(res.data));
+        })
+        .catch((er) => {
+          message.error("Có lỗi xảy ra, vui lòng thử lại");
+        });
+    };
+  };
+export const updateOrderObjApi = (obj) => {
+    return async (dispatch) => {
+      await http
+        .put(`/api/order/${obj.idOrder}`,obj)
+        .then((res) => {
+          message.success("Cập nhật trạng thái đơn hàng thành công")
+          // dispatch(getAllOrder(res.data));
         })
         .catch((er) => {
           message.error("Có lỗi xảy ra, vui lòng thử lại");

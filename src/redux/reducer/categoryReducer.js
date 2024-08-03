@@ -29,6 +29,16 @@ export const getAllCateApi = () => {
         }
     }
 }
+export const getSearchCateApi = (key) => {
+    return async dispatch => {
+        try {
+            const result = await http.get(`/api/categories/search?key=${key}`)
+            dispatch(getAllCateAction(result.data))
+        } catch (error) {
+
+        }
+    }
+}
 export const delCateApi = (id) => {
     return async dispatch => {
         try {

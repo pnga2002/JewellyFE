@@ -44,10 +44,10 @@ export const loginApi = (model) => {
       });
   };
 };
-export const getAllUserApi = () => {
+export const getAllUserApi = (key) => {
   return async (dispatch) => {
     await http
-      .get("/api/users")
+      .get(`/api/users?key=${key}`)
       .then((res) => {
         dispatch(setAllUserAction(res.data));
       })

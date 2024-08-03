@@ -42,9 +42,9 @@ const ChangPass = ({ open, setOpen }) => {
             },
             body: oldPassWord,
         }).then(()=>{
-            message.success("Success")
+            message.success("Thành công")
         }).catch(()=>{
-            message.error("Fail")
+            message.error("Thất bại")
         })
     };
     const next = async () => {
@@ -58,7 +58,7 @@ const ChangPass = ({ open, setOpen }) => {
                 form.setFields([
                     {
                         name: 'oldPassWord',
-                        errors: ['Incorrect old password!'],
+                        errors: ['Mật khẩu sai!'],
                     },
                 ]);
             }
@@ -79,30 +79,30 @@ const ChangPass = ({ open, setOpen }) => {
     return (
         <Modal width={'40%'} title={<p className='text-center'>Đổi mật khẩu</p>} visible={open} onCancel={onClose} footer={null}>
             <Steps current={current} className="mb-4">
-                <Step title="Check Old Password" />
-                <Step title="Change Password" />
+                <Step title="Kiểm tra mật khẩu hiện tại" />
+                <Step title="Đổi mật khẩu" />
             </Steps>
             <Form onFinish={onFinish} form={form}>
                 {current === 0 && (
                     <div className="form-group">
-                        <label className="label-register">Old Password</label>
+                        <label className="label-register">Mật khẩu hiện tại</label>
                         <Form.Item
                             name="oldPassWord"
                             id="oldPassWord"
-                            rules={[{ required: true, message: 'Please input your old password!' }]}
+                            rules={[{ required: true, message: 'Vui lòng nhập mật khẩu hiện tại!' }]}
                             hasFeedback
                         >
                             <Input.Password className="form-control" style={{ display: "flex" }} />
                         </Form.Item>
                         <Button type="primary" onClick={next}>
-                            Next
+                            Tiếp theo
                         </Button>
                     </div>
                 )}
                 {current === 1 && (
                     <>
                         <div className="form-group">
-                            <label className="label-register">Password</label>
+                            <label className="label-register">Mật khẩu</label>
                             <Form.Item
                                 name="passWord"
                                 id="passWord"
@@ -112,7 +112,7 @@ const ChangPass = ({ open, setOpen }) => {
                             </Form.Item>
                         </div>
                         <div className="form-group">
-                            <label className="label-register">Password confirmation</label>
+                            <label className="label-register">Nhập lại mật khẩu</label>
                             <Form.Item
                                 name="confirm"
                                 dependencies={["passWord"]}
@@ -125,7 +125,7 @@ const ChangPass = ({ open, setOpen }) => {
                                             }
                                             return Promise.reject(
                                                 new Error(
-                                                    "The two passwords that you entered do not match!"
+                                                    "Không trùng khớp!"
                                                 )
                                             );
                                         },
@@ -144,7 +144,7 @@ const ChangPass = ({ open, setOpen }) => {
                                     type="primary"
                                     className="me-2"
                                 >
-                                    Update
+                                    Cập nhật
                                 </Button>
                             </ul>
                         </div>

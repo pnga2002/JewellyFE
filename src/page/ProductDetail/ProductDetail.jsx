@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllProductDetailApi } from '../../redux/reducer/productReducer';
 import { useParams } from 'react-router-dom';
 import { addToCartApi } from '../../redux/reducer/cartReducer';
+import { message } from 'antd';
+import { history } from '../../App';
 
 const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1)
@@ -11,16 +13,21 @@ const ProductDetail = () => {
   const { userInfor } = useSelector((state) => state.authReducer)
   const dispatch = useDispatch();
   const addToCart = () => {
-    let obj = {
-      "userId": userInfor.idUser,
-      "productId": id,
-      "quantity": quantity
+    if(userInfor){
+      let obj = {
+        "userId": userInfor.idUser,
+        "productId": id,
+        "quantity": quantity
+      }
+      dispatch(addToCartApi(obj))
+    } else {
+      message.info("Bạn cần đăng nhập để tiếp tục mua hàng!")
+      history.push('/login')
     }
-    dispatch(addToCartApi(obj))
   }
   useEffect(() => {
     dispatch(getAllProductDetailApi(id))
-  }, id)
+  }, [id])
   const changeQuantity = () => {
     setQuantity(quantity + 1)
   }

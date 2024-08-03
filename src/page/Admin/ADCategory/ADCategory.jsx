@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { addCateApi, delCateApi, getAllCateApi, updateCateApi } from '../../../redux/reducer/categoryReducer';
+import { addCateApi, delCateApi, getAllCateApi, getSearchCateApi, updateCateApi } from '../../../redux/reducer/categoryReducer';
+const { Search } = Input;
 const ADCategory = () => {
   const { lstCate } = useSelector((state) => state.categoryReducer)
   const dispatch = useDispatch()
@@ -13,6 +14,7 @@ const ADCategory = () => {
    //post and put
    const [cate, setCate] = useState()
    const [open, setOpen] = useState(false)
+   const [search, setSearch] = useState('')
    const handleOpen = () => {
      setOpen(true)
    }
@@ -51,7 +53,8 @@ const ADCategory = () => {
     {
         title: 'Tên phân loại',
         dataIndex: 'name',
-        key: 'name',
+        key: 'name',      
+        sorter: (a, b) => a.name.localeCompare(b.name),
         render: (prod) => <p>{prod}</p>,
       },
     {
@@ -77,14 +80,26 @@ const ADCategory = () => {
       )
     }
   ];
+  const onSearch=(e) => { 
+    setSearch(e)
+   }
   useEffect(()=>{
-    dispatch(getAllCateApi())
-  },[])
+    dispatch(getSearchCateApi(search))
+  },[search])
   return (
     <div>
     <div className="d-flex align-items-center justify-content-between mb-3">
         <h4 className=''>Quản lý phân loại</h4>
         <button className='newsletter_submit_btn rounded' onClick={handleOpen}>Thêm mới</button>
+      </div>
+      <div>
+      <Search className='mb-1'
+          placeholder="Tìm kiếm tên"
+          onSearch={onSearch}
+          style={{
+              width: 300,
+          }}
+      />
       </div>
     <Table columns={columns} dataSource={lstCate}rowKey={record => record.idCategory} />
     <Modal title={cate?"Chỉnh sửa":"Thêm mới"} open={open} onCancel={handleClose} onOk={form.submit}>

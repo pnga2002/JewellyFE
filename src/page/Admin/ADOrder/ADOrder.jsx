@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllOrderApi, getOrderDetailApi, updateOrderApi } from '../../../redux/reducer/orderReducer';
+import { getAllOrderApi, getOrderDetailApi, updateOrderApi, updateOrderObjApi } from '../../../redux/reducer/orderReducer';
 import { Modal, Select, Table } from 'antd';
 import { getAllStatusApi } from '../../../redux/reducer/statusReducer';
 import moment from 'moment';
@@ -17,10 +17,22 @@ const ADOrder = () => {
     dispatch(getAllStatusApi());
   }, [dispatch]);
   
-  const handleStatusChange = (idOrder, idStatus) => {
-    dispatch(updateOrderApi({ idOrder, idStatus })).then(() => {
+  const handleStatusChange = (order, idStatus) => {
+   
+      let idOrder = order.idOrder
+    if(idStatus==3 && order.thanhToan!="Đã thanh toán online"){
+      let status = lstStatus.find(item => item.idStatus == idStatus)
+      let obj = {...order,thanhToan:"Đã thanh toán",status:status}
+      dispatch(updateOrderObjApi(obj)).then(() => {
+        dispatch(getAllOrderApi());
+      });
+    }
+    else{
+      dispatch(updateOrderApi({ idOrder, idStatus })).then(() => {
       dispatch(getAllOrderApi());
     });
+    }
+    
   };
 
   const columns = [
@@ -39,21 +51,29 @@ const ADOrder = () => {
       title: 'Địa chỉ',
       dataIndex: 'address',
       key: 'address',
+      sorter: (a, b) => a.address.localeCompare(b.address),
       render: (prod) => <p>{prod}</p>,
     },
     {
       title: 'Ngày đặt hàng',
       dataIndex: 'orderDate',
       key: 'orderDate',
+      sorter: (a, b) => moment(a.orderDate).unix() - moment(b.orderDate).unix(),
       render: (prod) => <p>{moment(prod).format('DD-MM-YYYY HH:mm:ss')}</p>,
     },
+    {
+      title: 'Thanh toán',
+      dataIndex: 'thanhToan',
+      key: 'thanhToan'
+  },
     {
       title: 'Trạng thái',
       dataIndex: 'status',
       key: 'status',
+      sorter: (a, b) => a.status.localeCompare(b.status),
       render: (prod, record) => {
         return (
-          <Select value={prod.idStatus} style={{ width: 200 }} onChange={(value) => handleStatusChange(record.idOrder, value)}>
+          <Select value={prod.idStatus} style={{ width: 200 }} onChange={(value) => handleStatusChange(record, value)}>
             {lstStatus.map(item => <Option key={item.idStatus} value={item.idStatus}>{item.name}</Option>)}
           </Select>
         );
@@ -85,6 +105,7 @@ const ADOrder = () => {
     {
       title: 'Tên sản phẩm',
       dataIndex: 'product',
+      sorter: (a, b) => a.product.name.localeCompare(b.product.name),
       key: 'name',
       render: (prod) => <p>{prod.name}</p>,
     },
@@ -92,12 +113,14 @@ const ADOrder = () => {
       title: 'Số lượng',
       dataIndex: 'quantity',
       key: 'quantity',
+      sorter: (a, b) => a.quantity-b.quantity,
       render: (quantity) => <p>{quantity}</p>,
     },
     {
       title: 'Giá tiền',
       dataIndex: 'product',
       key: 'price',
+      sorter: (a, b) => a.product.price-b.product.price,
       render: (prod) => <p>{prod.price.toLocaleString()}</p>,
     },
     {
@@ -120,6 +143,11 @@ const ADOrder = () => {
 
   return (
     <div>
+      <div className="d-flex align-items-center justify-content-between mb-3">
+        <h4 className=''>Quản lý đơn hàng</h4>
+        <span></span>
+      </div>
+      <div></div>
       <Table
         columns={columns}
         dataSource={allOrder}

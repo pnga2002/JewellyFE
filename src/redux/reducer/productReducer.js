@@ -86,3 +86,13 @@ export const addProductApi = (obj) => {
         }
     }
 }
+export const getProductSearch = (key) => {
+    return async dispatch => {
+        try {
+            const result = await http.get(`/api/products/search?key=${key}`)
+            dispatch(getAllProductAction(result.data))
+        } catch (error) {
+            message.error("Lỗi báo IT")
+        }
+    }
+}

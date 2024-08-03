@@ -30,6 +30,7 @@ import ADProduct from './page/Admin/ADProduct/ADProduct';
 import ADOrder from './page/Admin/ADOrder/ADOrder';
 import ADCategory from './page/Admin/ADCategory/ADCategory';
 import ADStatus from './page/Admin/ADStatus/ADStatus';
+import PaymentSuccess from './page/Cart/PaymentSuccess';
 export const history = createBrowserHistory();
 function App() { 
   return (
@@ -42,6 +43,7 @@ function App() {
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/phan-loai" element={<AllProduct />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/cart/success" element={<PaymentSuccess />} />
           <Route path="/profile" element={<Profile />} />
           {/* <Route path="/*" element={<PagenotFound />} /> */}
         </Route>

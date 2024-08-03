@@ -4,7 +4,7 @@ import { Table, Tag, Space, Button, Avatar, Popconfirm, Form, Modal, Input, Sele
 import { useDispatch, useSelector } from 'react-redux';
 import { addUserApi, delUserApi, getAllUserApi, updateUserApi } from '../../../redux/reducer/authReducer';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-
+const { Search } = Input;
 const ADUser = () => {
 
   const { allUser } = useSelector((state) => state.authReducer);
@@ -15,6 +15,7 @@ const ADUser = () => {
   //post and put
   const [user, setUser] = useState()
   const [open, setOpen] = useState(false)
+  const [search, setSearch] = useState('')
   const handleOpen = () => {
     setOpen(true)
   }
@@ -45,8 +46,8 @@ const ADUser = () => {
     }
   }
   useEffect(() => {
-    dispatch(getAllUserApi())
-  }, [])
+    dispatch(getAllUserApi(search))
+  }, [search])
   const columns = [
     {
       title: 'STT',
@@ -57,6 +58,7 @@ const ADUser = () => {
       title: 'User',
       dataIndex: 'username',
       key: 'name',
+      sorter: (a, b) => a.username.localeCompare(b.username),
       render: (text, record) => (
         <Space>
           <Avatar src={`https://ui-avatars.com/api/?name=${text}&background=random&bold=true`} />
@@ -67,7 +69,8 @@ const ADUser = () => {
     {
       title: 'Email',
       dataIndex: 'email',
-      key: 'email'
+      key: 'email',
+      sorter: (a, b) => a.email.localeCompare(b.email),
     },
     {
       title: 'Số điện thoại',
@@ -78,11 +81,13 @@ const ADUser = () => {
       title: 'Quyền',
       dataIndex: 'role',
       key: 'role',
+      sorter: (a, b) => a.role.localeCompare(b.role),
       render: (_, rec, idx) => <Tag color='blue-inverse' style={{ textTransform: "capitalize" }}>{_}</Tag>,
     },
     {
       title: 'Địa chỉ',
       dataIndex: 'address',
+      sorter: (a, b) => a.address.localeCompare(b.address),
       key: 'address'
     },
     {
@@ -108,11 +113,23 @@ const ADUser = () => {
       )
     }
   ];
+  const onSearch=(e) => { 
+    setSearch(e)
+   }
   return (
     <div>
       <div className="d-flex align-items-center justify-content-between mb-3">
         <h4 className=''>Quản lý người dùng</h4>
         <button className='newsletter_submit_btn rounded' onClick={handleOpen}>Thêm mới</button>
+      </div>
+      <div>
+      <Search className='mb-1'
+          placeholder="Tìm kiếm tên"
+          onSearch={onSearch}
+          style={{
+              width: 300,
+          }}
+      />
       </div>
       <Table columns={columns} dataSource={allUser} rowKey={record => record.idUser} />
       <Modal title={user ? "Chỉnh sửa" : "Thêm mới"} open={open} onCancel={handleClose} onOk={form.submit}>

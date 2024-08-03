@@ -2,8 +2,9 @@ import { Button, Form, Input, Modal, Popconfirm, Select, Space, Table, Tag } fro
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { addProductApi, delProductApi, getAllProductApi, updateProductApi } from '../../../redux/reducer/productReducer'
+import { addProductApi, delProductApi, getAllProductApi, getProductSearch, updateProductApi } from '../../../redux/reducer/productReducer'
 import { getAllCateApi } from '../../../redux/reducer/categoryReducer';
+const { Search } = Input;
 
 const ADProduct = () => {
 
@@ -13,6 +14,7 @@ const ADProduct = () => {
   //upadte && post new
   const [product, setProduct] = useState()
   const [open, setOpen] = useState(false)
+  const [search, setSearch] = useState('')
   const handleOpen = () => {
     setOpen(true)
   }
@@ -65,8 +67,8 @@ const ADProduct = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getAllCateApi())
-    dispatch(getAllProductApi())
-  }, [])
+    dispatch(getProductSearch(search))
+  }, [search])
   
   const handleDelete = (id) => {
     dispatch(delProductApi(id))
@@ -87,6 +89,8 @@ const ADProduct = () => {
     {
       title: 'Tên sản phẩm',
       dataIndex: 'name',
+      
+      sorter: (a, b) => a.name.localeCompare(b.name),
       key: 'name',
       render: (prod) => <p>{prod}</p>,
     },
@@ -100,12 +104,14 @@ const ADProduct = () => {
       title: 'Phân loại',
       dataIndex: 'category',
       key: 'category',
+      sorter: (a, b) => a.category.name.localeCompare(b.category.name),
       render: (text) => <Tag color='cyan-inverse' >{text.name}</Tag>
     },
     {
       title: 'Giá tiền',
       dataIndex: 'price',
       key: 'giaTien',
+      sorter: (a, b) => a.price - b.price,
       render: (prod) => <p>{(prod * 1000).toLocaleString()}</p>,
     },
     {
@@ -131,11 +137,23 @@ const ADProduct = () => {
       )
     }
   ];
+  const onSearch=(e) => { 
+    setSearch(e)
+   }
   return (
     <div>
       <div className="d-flex align-items-center justify-content-between mb-3">
         <h4 className=''>Quản lý sản phẩm</h4>
         <button className='newsletter_submit_btn rounded' onClick={handleOpen}>Thêm sản phẩm</button>
+      </div>
+      <div>
+      <Search className='mb-1'
+          placeholder="Tìm kiếm tên sản phẩm"
+          onSearch={onSearch}
+          style={{
+              width: 300,
+          }}
+      />
       </div>
       <Table columns={columns} dataSource={lstProduct} rowKey={record => record.idProduct} />
       <Modal title={product?"Chỉnh sửa sản phẩm":"Thêm mới sản phẩm"} open={open} onCancel={handleClose} onOk={form.submit}>
