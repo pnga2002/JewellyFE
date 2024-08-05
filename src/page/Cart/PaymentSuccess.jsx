@@ -26,7 +26,7 @@ const PaymentSuccess = () => {
     const vpc_Version = searchParams.get("vpc_Version")
     const vpc_BinCountry = searchParams.get("vpc_BinCountry")
     const vpc_SecureHash = searchParams.get("vpc_SecureHash")
-    const vpc_Amount = searchParams.get("vpc_Amount")
+    const vpc_Amount = searchParams.get("vpc_Amount")*1
     const renderTrangThai=(vpcMessage) => { 
         switch (vpcMessage) {
           case 0:
@@ -122,7 +122,7 @@ const PaymentSuccess = () => {
             <div style={styles.details}>
                 <h3>Thông tin thanh toán:</h3>
                 <p><strong>Mã giao dịch:</strong> {vpc_TransactionNo}</p>
-                <p><strong>Số tiền thanh toán:</strong> {vpc_Amount.toLocaleString()} VND</p>
+                <p><strong>Số tiền thanh toán:</strong> {vpc_Amount?.toLocaleString()} VND</p>
                 <p><strong>Trạng thái:</strong> {renderTrangThai(vpc_TxnResponseCode)}</p>
             </div>
 

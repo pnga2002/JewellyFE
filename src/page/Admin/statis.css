@@ -1,0 +1,29 @@
+.statistics {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    gap: 10px;
+  }
+  
+  .stat-column {
+    
+    background-color: #f0f0f0;
+    flex-basis: 30%;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .stat-column h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .stat-column p {
+    font-size: 18px;
+    color: #666;
+  }

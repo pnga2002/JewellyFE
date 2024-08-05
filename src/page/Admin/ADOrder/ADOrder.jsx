@@ -70,7 +70,7 @@ const ADOrder = () => {
       title: 'Trạng thái',
       dataIndex: 'status',
       key: 'status',
-      sorter: (a, b) => a.status.localeCompare(b.status),
+      sorter: (a, b) => a.status.name.localeCompare(b.status.name),
       render: (prod, record) => {
         return (
           <Select value={prod.idStatus} style={{ width: 200 }} onChange={(value) => handleStatusChange(record, value)}>
