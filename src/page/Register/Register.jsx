@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import './login.css'
+import '../Login/login.css'
 import { useDispatch } from 'react-redux';
-import { loginApi } from '../../redux/reducer/authReducer';
-const Login = () => {
+import { addUserApi, loginApi, register } from '../../redux/reducer/authReducer';
+const Register = () => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
 
   const onFinish = async (values) => {
     setLoading(true);
-    dispatch(loginApi(values))
+    const obj ={
+        "idUser": 0,
+        "username": values.username,
+        "password": values.password,
+        "email": values.email,
+        "role": "user",
+        "phoneNumber": values.phoneNumber,
+        "address": ""
+      }
+    console.log(values)
+    dispatch(register(obj))
+    
   };
   return (
     <div className="login_container">
@@ -25,7 +36,7 @@ const Login = () => {
     >
       <Form.Item
         name="username"
-        rules={[{ required: true, message: 'Vui lòng nhập userame!' }]}
+        rules={[{ required: true, message: 'Vui lòng nhập username!' }]}
       >
         <Input
           prefix={<UserOutlined className="site-form-item-icon" />}
@@ -34,21 +45,39 @@ const Login = () => {
       </Form.Item>
       <Form.Item
         name="password"
-        rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}
+        rules={[{ required: true, message: 'Vui lòng nhập mật khẩu' }]}
       >
         <Input.Password
           prefix={<LockOutlined className="site-form-item-icon" />}
-          placeholder="Password"
+          placeholder="Mật khẩu"
+        />
+      </Form.Item>
+      <Form.Item
+        name="phoneNumber"
+        rules={[{ required: true, message: 'Vui lòng nhập số điện thoại!' }]}
+      >
+        <Input
+        //   prefix={<LockOutlined className="site-form-item-icon" />}
+          placeholder="Số điện thoại"
+        />
+      </Form.Item>
+      <Form.Item
+        name="email"
+        rules={[{ required: true, message: 'Vui lòng nhập email!' }]}
+      >
+        <Input
+        //   prefix={<LockOutlined className="site-form-item-icon" />}
+          placeholder="Email"
         />
       </Form.Item>
       <Form.Item>
         <button  className="button login__submit" loading={loading}>
-          đăng nhập
+          tạo tài khoản
         </button>
       </Form.Item>
     </Form>
       <div className="social-login">
-        <h3>Đăng nhập</h3>
+        <h3>log in via</h3>
         <div className="social-icons">
           <a href="#" className="social-login__icon fab fa-instagram" />
           <a href="#" className="social-login__icon fab fa-facebook" />
@@ -69,4 +98,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Register

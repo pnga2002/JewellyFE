@@ -79,7 +79,7 @@ const ProductDetail = () => {
                 <p>{productDetail?.description}</p>
               </div>
               <div className="free_delivery d-flex flex-row align-items-center justify-content-center">
-                <span className="ti-truck" /><span>free delivery</span>
+                <span className="ti-truck" /><span>Miễn phí vận chuyển</span>
               </div>
               <div className="product_price">{productDetail?.price}.000 VND</div>
               <ul className="star_rating">
@@ -98,14 +98,14 @@ const ProductDetail = () => {
                                 </ul>
                             </div> */}
               <div className="quantity d-flex flex-column flex-sm-row align-items-sm-center">
-                <span>Quantity:</span>
+                <span>Số lượng:</span>
                 <div className="quantity_selector">
                   <span className="minus" onClick={giamSL}><i className="fa fa-minus" aria-hidden="true" /></span>
                   <span id="quantity_value">{quantity}</span>
                   <span className="plus" onClick={changeQuantity}><i className="fa fa-plus" aria-hidden="true" /></span>
                 </div>
                 <div className="red_button ">
-                  <button className='newsletter_submit_btn' onClick={addToCart}>add to cart</button></div>
+                  <button className='newsletter_submit_btn' onClick={addToCart}>Thêm vào giỏ hàng</button></div>
                 <div className="product_favorite d-flex flex-column align-items-center justify-content-center" />
               </div>
             </div>
@@ -122,8 +122,8 @@ const ProductDetail = () => {
                 <div className="benefit_item d-flex flex-row align-items-center">
                   <div className="benefit_icon"><i className="fa fa-truck" aria-hidden="true" /></div>
                   <div className="benefit_content">
-                    <h6>free shipping</h6>
-                    <p>Suffered Alteration in Some Form</p>
+                    <h6>Miễn phí vận chuyển</h6>
+                    <p>Miễn phí mọi đơn hàng</p>
                   </div>
                 </div>
               </div>

@@ -6,7 +6,9 @@ import { message } from "antd";
 
 const initialState = {
   userInfor: getStoreJson("user_infor"),
-  allUser:[]
+  allUser:[],
+  thongKe:{},
+  loading:[]
 }
 const authReducer = createSlice({
   name: "authReducer",
@@ -18,12 +20,20 @@ const authReducer = createSlice({
     setAllUserAction: (state, action) => {
       state.allUser = action.payload;
     },
+    setThongKe: (state, action) => {
+      state.thongKe = action.payload;
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
   },
 });
 
 export const { 
   setUserInforAction,
-  setAllUserAction
+  setAllUserAction,
+  setThongKe,
+  setLoading
  } = authReducer.actions;
 
 export default authReducer.reducer;
@@ -60,7 +70,7 @@ export const delUserApi = (id) => {
   return async dispatch => {
       try {
           const result = await http.delete(`/api/users/${id}`)
-          dispatch(getAllUserApi())
+          dispatch(getAllUserApi(""))
           message.success("Xóa thành công")
       } catch (error) {
         message.warning("Người dùng có đơn hàng chưa xử lý, vui lòng xử lý đơn hàng trước khi xóa!")
@@ -71,7 +81,7 @@ export const updateUserApi = (obj) => {
   return async dispatch => {
       try {
           const result = await http.put(`/api/users/${obj.idUser}`,obj)
-          dispatch(getAllUserApi())
+          dispatch(getAllUserApi(""))
           message.success("Cập nhật thành công")
       } catch (error) {
           message.error("Lỗi báo IT")
@@ -84,8 +94,21 @@ export const addUserApi = (obj) => {
   return async dispatch => {
       try {
           const result = await http.post(`/api/users`,obj)
-          dispatch(getAllUserApi())
+          dispatch(getAllUserApi(""))
           message.success("Thêm mới thành công")
+      } catch (error) {
+          message.error("Lỗi báo IT")
+      }
+  }
+}
+export const register = (obj) => {
+
+  
+  return async dispatch => {
+      try {
+          const result = await http.post(`/api/users`,obj)
+          message.success("Đăng ký thành công! Vui lòng đăng nhập để tiếp  tục")
+          history.push("login")
       } catch (error) {
           message.error("Lỗi báo IT")
       }
@@ -107,6 +130,19 @@ export const changePass = (obj) => {
          
           message.success("Đổi mật khẩu thành công")
       } catch (error) {
+      }
+  }
+}
+export const getThongKe = () => {
+  return async dispatch => {
+    dispatch(setLoading(true))
+      try {
+          const result = await http.get(`/api/order/thongKe`)
+          console.log('result: ', result);
+         dispatch(setThongKe(result.data))
+          message.success("Lấy thông tin thành công")
+dispatch(setLoading(false))      } catch (error) {
+        dispatch(setLoading(false))
       }
   }
 }

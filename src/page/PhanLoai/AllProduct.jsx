@@ -32,22 +32,22 @@ const AllProduct = () => {
                         {/* Breadcrumbs */}
                         <div className="breadcrumbs d-flex flex-row align-items-center">
                             <ul>
-                                <li><a href="index.html">Home</a></li>
-                                <li className="active"><a><i className="fa fa-angle-right" aria-hidden="true" />Category</a></li>
+                                <li><a href="index.html">Trang chủ</a></li>
+                                <li className="active"><a><i className="fa fa-angle-right" aria-hidden="true" />Phân loại</a></li>
                             </ul>
                         </div>
                         {/* Sidebar */}
                         <div className="sidebar">
                             <div className="sidebar_section">
                                 <div className="sidebar_title">
-                                    <h5>Product Category</h5>
+                                    <h5>Phân loại</h5>
                                 </div>
                                 <ul className="sidebar_categories">
                                 <li><p className={`${idCate==0 && 'active'}`} onClick={() => { 
                                       searchParams.set("cate","all");
                                       setSearchParams(searchParams);
                                       setIdCate(0)
-                                     }}>All</p></li>
+                                     }}>Tất cả</p></li>
                                    {lstCate?.map((item,idx)=>{
                                     return <li><p className={`${idCate==item.idCategory && 'active'}`} onClick={() => { 
                                       searchParams.set("cate",toAliasString(item.name));

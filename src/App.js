@@ -31,6 +31,7 @@ import ADOrder from './page/Admin/ADOrder/ADOrder';
 import ADCategory from './page/Admin/ADCategory/ADCategory';
 import ADStatus from './page/Admin/ADStatus/ADStatus';
 import PaymentSuccess from './page/Cart/PaymentSuccess';
+import Register from './page/Register/Register';
 export const history = createBrowserHistory();
 function App() { 
   return (
@@ -58,6 +59,7 @@ function App() {
           {/* <Route path="/*" element={<PagenotFound />} /> */}
         </Route>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         {/* <Route path="/signup" element={<Signup />} /> */}
       </Routes>
     </HistoryRouter> 

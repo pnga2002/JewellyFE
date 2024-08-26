@@ -51,7 +51,7 @@ const HistoryOrder = () => {
             title: 'Tổng tiền',
             dataIndex: 'total',
             key: 'total',
-            render: (text, rec) => <p>{text.toLocaleString()}</p>,
+            render: (text, rec) => <p>{(text*1000).toLocaleString()}</p>,
         },
         {
             title: 'Thanh toán',

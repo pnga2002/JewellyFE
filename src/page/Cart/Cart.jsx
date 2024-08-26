@@ -5,6 +5,7 @@ import { Input, Modal, Space, Table, message } from 'antd';
 import { addOrderApi, addOrderPaymentApi } from '../../redux/reducer/orderReducer';
 import axios from 'axios';
 import { luuStoreJson } from '../../utils/config';
+import { history } from '../../App';
 
 const Cart = () => {
   const { userInfor } = useSelector((state) => state.authReducer);
@@ -59,16 +60,16 @@ const Cart = () => {
       key: 'total',
       render: (_, rec) => <p>{(rec.product.price * rec.quantity * 1000).toLocaleString()}</p>,
     },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_, record) => (
-        <Space size="middle">
-          <a>Update</a>
-          <a>Delete</a>
-        </Space>
-      ),
-    },
+    // {
+    //   title: 'Action',
+    //   key: 'action',
+    //   render: (_, record) => (
+    //     <Space size="middle">
+    //       <a>Update</a>
+    //       <a>Delete</a>
+    //     </Space>
+    //   ),
+    // },
   ];
   const columns2 = [
     {
@@ -167,15 +168,19 @@ const Cart = () => {
   }, [dispatch, userInfor]);
   useEffect(() => {
     // Gửi yêu cầu HTTP GET đến https://jsonip.com để lấy địa chỉ IP
+   if(userInfor){
     axios.get('https://jsonip.com')
-      .then(response => {
-        // Lấy địa chỉ IP từ dữ liệu phản hồi
-        const ip_address = response.data.ip;
-        setIpAddress(ip_address);
-      })
-      .catch(error => {
-        console.error('Đã xảy ra lỗi:', error);
-      });
+    .then(response => {
+      // Lấy địa chỉ IP từ dữ liệu phản hồi
+      const ip_address = response.data.ip;
+      setIpAddress(ip_address);
+    })
+    .catch(error => {
+      console.error('Đã xảy ra lỗi:', error);
+    });
+   } else {
+    history.push("")
+   }
   }, []);
   return (
     <div className="container" style={{ paddingTop: '200px' }}>

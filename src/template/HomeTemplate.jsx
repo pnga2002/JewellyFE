@@ -121,12 +121,12 @@ const HomeTemplate = () => {
                                 </div>
                                 <nav className="navbar">
                                     <ul className="navbar_menu">
-                                        <li><NavLink to="/">home</NavLink></li>
+                                        <li><NavLink to="/">Trang chủ</NavLink></li>
                                         <li className="nav-item dropdown">
                                             <span className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" onClick={() => {
                                                 history.push('/phan-loai')
                                             }}>
-                                                Category
+                                                Phân loại
                                             </span>
                                             <ul className="dropdown-menu">
                                                 {lstCate?.map((item, idx) => {
@@ -137,10 +137,7 @@ const HomeTemplate = () => {
                                             </ul>
                                         </li>
 
-                                        <li><a href="#">promotion</a></li>
-                                        <li><a href="#">pages</a></li>
-                                        <li><a href="#">blog</a></li>
-                                        <li><a href="contact.html">contact</a></li>
+                                        
                                     </ul>
                                     <ul className="navbar_user">
                                         <li><Search
@@ -183,7 +180,7 @@ const HomeTemplate = () => {
                                 <ul className="footer_nav">
                                     <li><a href="#">Blog</a></li>
                                     <li><a href="#">FAQs</a></li>
-                                    <li><a href="contact.html">Contact us</a></li>
+                                    <li><a href="contact.html">Liên hệ</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -202,7 +199,7 @@ const HomeTemplate = () => {
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="footer_nav_container">
-                                <div className="cr">©2018 All Rights Reserverd. Made with <i className="fa fa-heart-o" aria-hidden="true" /> by <a href="#">Colorlib</a> &amp; distributed by <a href="https://themewagon.com">ThemeWagon</a></div>
+                                <div className="cr">©2018 All Rights Reserverd. Made with <i className="fa fa-heart-o" aria-hidden="true" /> by <a href="#">Colorlib</a> &amp; distributed by <a href="https://themewagon.com">Group29</a></div>
                             </div>
                         </div>
                     </div>
